@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { apiFetch, readApiJson } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -12,13 +13,13 @@ export const AuthProvider = ({ children }) => {
     const fetchProfile = async () => {
       if (token) {
         try {
-          const res = await fetch('/api/auth/me', {
+          const res = await apiFetch('/api/auth/me', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
           if (res.ok) {
-            const data = await res.json();
+            const data = await readApiJson(res, 'Unable to load your session.');
             setUser(data);
           } else {
             // Token expired or invalid
@@ -39,14 +40,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await apiFetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
+      const data = await readApiJson(res, 'Login failed. Please try again.');
       
       if (!res.ok) {
         throw new Error(data.message || 'Login failed.');
@@ -66,14 +67,14 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password, classLevel, rollNo, phone) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/register-student', {
+      const res = await apiFetch('/api/auth/register-student', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, password, classLevel, rollNo, phone }),
       });
-      const data = await res.json();
+      const data = await readApiJson(res, 'Registration failed. Please try again.');
 
       if (!res.ok) {
         throw new Error(data.message || 'Registration failed.');
@@ -92,7 +93,7 @@ export const AuthProvider = ({ children }) => {
   // Profile update handler
   const updateProfile = async (profileData) => {
     try {
-      const res = await fetch('/api/student/profile', {
+      const res = await apiFetch('/api/student/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(profileData),
       });
-      const data = await res.json();
+      const data = await readApiJson(res, 'Profile update failed.');
 
       if (!res.ok) {
         throw new Error(data.message || 'Profile update failed.');

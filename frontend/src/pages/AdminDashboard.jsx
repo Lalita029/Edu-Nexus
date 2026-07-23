@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../config/api';
 import { UserPlus, BookOpen, Users, Award, Trash2, Mail, Lock, ShieldAlert, ChevronDown, Check, TrendingUp } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -37,7 +38,7 @@ const AdminDashboard = () => {
   const fetchTeachers = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/teachers', {
+      const res = await apiFetch('/api/admin/teachers', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -60,7 +61,7 @@ const AdminDashboard = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/teachers', {
+      const res = await apiFetch('/api/admin/teachers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ const AdminDashboard = () => {
     setSuccess('');
     
     try {
-      const res = await fetch(`/api/admin/teachers/${id}`, {
+      const res = await apiFetch(`/api/admin/teachers/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -118,7 +119,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setPerformanceData(null);
     try {
-      const res = await fetch(`/api/admin/performance/${selectedClass}`, {
+      const res = await apiFetch(`/api/admin/performance/${selectedClass}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

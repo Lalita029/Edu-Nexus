@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../config/api';
 import { Award, BookOpen, Trophy, Play, Sparkles, User as UserIcon, Clock, ArrowRight, Check, X, ChevronRight, Mail, Phone, FileText, ListPlus, Plus } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -140,7 +141,7 @@ const StudentDashboard = () => {
     setLoading(true);
     try {
       // 1. Fetch chapters
-      const chRes = await fetch(`/api/student/chapters/${selectedSubject}`, {
+      const chRes = await apiFetch(`/api/student/chapters/${selectedSubject}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const chData = await chRes.json();
@@ -148,7 +149,7 @@ const StudentDashboard = () => {
       setChapters(chData);
 
       // 2. Fetch quizzes
-      const qRes = await fetch(`/api/student/quizzes/${selectedSubject}`, {
+      const qRes = await apiFetch(`/api/student/quizzes/${selectedSubject}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const qData = await qRes.json();
@@ -164,7 +165,7 @@ const StudentDashboard = () => {
   const fetchLeaderboard = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/student/leaderboard', {
+      const res = await apiFetch('/api/student/leaderboard', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -260,7 +261,7 @@ const StudentDashboard = () => {
   const submitQuiz = async (finalAnswers) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/student/quizzes/${activeQuiz._id}/submit`, {
+      const res = await apiFetch(`/api/student/quizzes/${activeQuiz._id}/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
