@@ -258,7 +258,3 @@ www.linkedin.com/in/lalitabishnoi92
 
 ---
 
-
-# 📜 License
-
-This project is licensed under the MIT License.
