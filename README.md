@@ -4,9 +4,11 @@ Edu-Nexus is a full-stack Learning Management System (LMS) built using the MERN 
 
 ## 🌐 Live Demo
 
-**Frontend:** https://edu-nexus-frontend.onrender.com
+https://edu-nexus-frontend.onrender.com/#/
 
-**Backend API:** https://edu-nexus-r2s2.onrender.com
+**Frontend:** [https://edu-nexus-frontend.onrender.com](https://edu-nexus-frontend.onrender.com/)
+
+**Backend API:** [https://edu-nexus-r2s2.onrender.com](https://edu-nexus-backend-q6gm.onrender.com)
 
 ---
 
